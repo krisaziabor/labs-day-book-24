@@ -24,11 +24,13 @@ class API {
 
     async post<T>(endpoint: string, body: unknown): Promise<T> {
         const url = new URL(HOST + API_ROOT + endpoint);
+        const apiKey = process.env.apiKey;
+        console.log('API Key:', apiKey); // Add this line to log the API key
         const response = await fetch(url.toString(), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${process.env.apiKey}`,
+                'Authorization': `Bearer ${apiKey}`,
             },
             body: JSON.stringify(body),
         });

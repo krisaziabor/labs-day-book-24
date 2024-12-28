@@ -1,7 +1,7 @@
 'use client'
 
 
-import NameForm from './ui/yaleStatus';
+import NameForm from './components/yaleStatus';
 
 export default function Home() {
   return (

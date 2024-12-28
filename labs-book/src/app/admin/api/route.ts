@@ -1,5 +1,9 @@
 export async function GET() {
-    const response = await fetch('https://ndobo23qh2.execute-api.us-east-1.amazonaws.com/preorders', {
+    const url = process.env.adminAPI;
+    if (!url) {
+        return new Response(JSON.stringify({ error: 'adminAPI URL is not defined' }), { status: 500 });
+    }
+    const response = await fetch(url, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

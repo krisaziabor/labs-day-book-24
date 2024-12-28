@@ -2,9 +2,14 @@
 
 
 import NameForm from './components/yaleStatus';
+import FinalizeOrder from './components/finalizeOrder';
 
 export default function Home() {
   return (
-    <NameForm />
+    <div className="container">
+      <NameForm />
+      <br />
+      <FinalizeOrder />
+    </div>
   );
 }

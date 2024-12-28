@@ -1,4 +1,4 @@
-(function() {
+(function submitData() {
   // get all data in form and return object
   function getFormData(form) {
     var elements = form.elements;
@@ -103,3 +103,6 @@
     }
   }
 })();
+
+// export the submitData function
+export { submitData };

@@ -3,6 +3,41 @@
         {
             "type": "aws-sam",
             "request": "direct-invoke",
+            "name": "fulfilled-lambda-nodejs18.x:HelloWorldFunction (nodejs18.x)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/fulfilled-lambda-nodejs18.x/template.yaml",
+                "logicalId": "HelloWorldFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {},
+                "runtime": "nodejs18.x"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API fulfilled-lambda-nodejs18.x:HelloWorldFunction (nodejs18.x)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/fulfilled-lambda-nodejs18.x/template.yaml",
+                "logicalId": "HelloWorldFunction"
+            },
+            "api": {
+                "path": "/hello",
+                "httpMethod": "get",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "nodejs18.x"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
             "name": "archiveorder-lambda-nodejs18.x:HelloWorldFunction (nodejs18.x)",
             "invokeTarget": {
                 "target": "template",

@@ -39,6 +39,7 @@ export function DataTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   )
+  const [rowSelection, setRowSelection] = React.useState({})
 
   const table = useReactTable({
     data,
@@ -49,9 +50,11 @@ export function DataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    onRowSelectionChange: setRowSelection,
     state: {
       sorting,
       columnFilters,
+      rowSelection,
     }
   })
 
@@ -59,10 +62,10 @@ export function DataTable<TData, TValue>({
     <div>
        <div className="flex items-center py-4">
         <Input
-          placeholder="Filter surnames..."
-          value={(table.getColumn("last_name")?.getFilterValue() as string) ?? ""}
+          placeholder="Filter residential colleges..."
+          value={(table.getColumn("college")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("last_name")?.setFilterValue(event.target.value)
+            table.getColumn("college")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
@@ -128,6 +131,10 @@ export function DataTable<TData, TValue>({
         >
           Next
         </Button>
+      </div>
+      <div className="flex-1 text-sm text-muted-foreground">
+        {table.getFilteredSelectedRowModel().rows.length} of{" "}
+        {table.getFilteredRowModel().rows.length} row(s) selected.
       </div>
     </div>
   )

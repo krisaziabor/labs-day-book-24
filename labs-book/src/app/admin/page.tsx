@@ -16,6 +16,7 @@ const Admin = () => {
   const [data, setData] = useState<Preorder[]>([]);
   const [loading, setLoading] = useState(true);
 
+
   const getData = async () => {
     try {
       const response = await fetch(`/admin/api`);
@@ -32,6 +33,12 @@ const Admin = () => {
     getData();
   }, []);
 
+  // const { isLoaded, isSignedIn, user } = useUser()
+
+  //   if (!isLoaded || !isSignedIn) {
+  //     return null
+  //   }
+
   return (
     <div>
       <div>
@@ -43,6 +50,8 @@ const Admin = () => {
             <SignedIn>
               <UserButton />
             </SignedIn>
+            <h1 className="">Hey! Glad you&apos;re here :) Let&apos;s send out some books! </h1>
+            <h2>This administrator dashboard displays all the pre-order requests from the main page. Here, you can view all records, find a customer&apos;s email address, send them an automated confirmation, and officially mark their order as fulfilled. </h2>
           </div>
         </ClerkProvider>
       </div>

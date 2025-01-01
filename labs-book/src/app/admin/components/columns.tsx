@@ -5,6 +5,8 @@ import { MoreHorizontal } from "lucide-react";
 import { ArrowUpDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,26 +23,49 @@ export type Preorder = {
     payment_method: string;
     pay_details: string | null;
     created_at: string;
-    fulfilled: boolean;
+    email: string;
 };
 
 export const columns: ColumnDef<Preorder>[] = [
     {
-        accessorKey: "fulfilled",
+        id: "select",
+        header: ({ table }) => (
+            <Checkbox
+                checked={
+                    table.getIsAllPageRowsSelected() ||
+                    (table.getIsSomePageRowsSelected() && "indeterminate")
+                }
+                onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+                aria-label="Select all"
+            />
+        ),
+        cell: ({ row }) => (
+            <Checkbox
+            checked={row.getIsSelected()}
+            onCheckedChange={(value) => row.toggleSelected(!!value)}
+            aria-label="Select row"
+        />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+    },
+    {
+        accessorKey: "created_at",
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() == "asc")}
-                    >
-                        Status
-                        <ArrowUpDown className="ml-2 h-4 w-4" />
-                    </Button>
+                >
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                    Order date
+                </Button>
             )
         },
         cell: ({ row }) => {
             const preorder = row.original
-            return <div>{preorder.fulfilled ? "Fulfilled" : "Not fulfilled"}</div>
+            const date = new Date(preorder.created_at)
+            return <div>{date.toLocaleDateString()}</div>
         }
     },
     {
@@ -64,15 +89,6 @@ export const columns: ColumnDef<Preorder>[] = [
         header: "Username/phone number",
     },
     {
-        accessorKey: "created_at",
-        header: () => <div>Order date</div>,
-        cell: ({ row }) => {
-            const preorder = row.original
-            const date = new Date(preorder.created_at)
-            return <div>{date.toLocaleDateString()}</div>
-        }
-    },
-    {
         id: "actions",
         cell: ({ row }) => {
           const preorder = row.original
@@ -88,9 +104,9 @@ export const columns: ColumnDef<Preorder>[] = [
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuItem
-                  onClick={() => navigator.clipboard.writeText(preorder.pay_details ?? "")}
+                  onClick={() => navigator.clipboard.writeText(preorder.email ?? "")}
                 >
-                  Copy username/phone number
+                  Copy customer email address
                 </DropdownMenuItem>
                 <DropdownMenuItem>Mark order as fulfilled</DropdownMenuItem>
                 <DropdownMenuItem>Email customer</DropdownMenuItem>

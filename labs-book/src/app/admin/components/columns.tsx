@@ -103,13 +103,12 @@ export const columns: ColumnDef<Preorder>[] = [
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuItem>Change fulfillment status</DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => navigator.clipboard.writeText(preorder.email ?? "")}
                 >
                   Copy customer email address
                 </DropdownMenuItem>
-                <DropdownMenuItem>Mark order as fulfilled</DropdownMenuItem>
-                <DropdownMenuItem>Email customer</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           )

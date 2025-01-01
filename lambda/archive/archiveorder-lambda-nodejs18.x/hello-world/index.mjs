@@ -25,31 +25,32 @@ const pool = new Pool({
   },
 });
 
-export const lambdaHandler = async (event) => {
-  const query = "UPDATE preorders SET fulfilled = true WHERE id = $1";
+export const handler = async (event) => {
+  // query to update orders listed in given array of IDs as fulfilled
+  const query = `UPDATE orders SET fulfilled = true WHERE id = ANY($1::int[])`;
 
   try {
-    // parse ID from event body
+    // parse IDs from event body
     const body = JSON.parse(event.body);
-    const id = body.id;
+    const ids = body.ids;
 
-    // validate input – ensure it is a number
-    if (isNaN(id)) {
+    // validate input – ensure it is an array of numbers
+    if (!Array.isArray(ids) || ids.some(isNaN)) {
       return {
         statusCode: 400,
         body: JSON.stringify({
-          message: "ID must be a number.",
+          message: "IDs must be an array of numbers.",
         }),
       };
     }
 
-    const result = await pool.query(query, id);
+    const result = await pool.query(query, [ids]);
 
     if (result.rowCount === 0) {
       return {
         statusCode: 404,
         body: JSON.stringify({
-          message: `No order found with ID ${id}.`,
+          message: `No orders found with the provided IDs.`,
         }),
       };
     }
@@ -57,7 +58,9 @@ export const lambdaHandler = async (event) => {
     return {
       statusCode: 200,
       body: JSON.stringify({
-        message: `Order wih id ${id} successfully marked as fulfilled.`,
+        message: `Orders with ids ${ids.join(
+          ", "
+        )} successfully marked as fulfilled.`,
       }),
     };
   } catch (error) {

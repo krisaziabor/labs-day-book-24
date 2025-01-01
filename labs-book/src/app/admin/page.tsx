@@ -19,16 +19,17 @@ import { Separator } from "@/components/ui/separator"
 
 
 const Admin = () => {
-  const [notDoneData, setNotDoneData] = useState<Preorder[]>([]);
-  const [DoneData, setDoneData] = useState<Preorder[]>([]);
+  const [unsentData, setunsentData] = useState<Preorder[]>([]);
+  const [sentData, setsentData] = useState<Preorder[]>([]);
+  const [pendingData, setpendingData] = useState<Preorder[]>([]);
   const [loading, setLoading] = useState(true);
 
 
-  const getNotDoneData = async () => {
+  const getunsentData = async () => {
     try {
-      const response = await fetch(`/admin/not-done/api`);
+      const response = await fetch(`/admin/unsent/api`);
       const fetchedData = await response.json();
-      setNotDoneData(fetchedData);
+      setunsentData(fetchedData);
     } catch (error) {
       console.error("Error fetching preorders:", error);
     } finally {
@@ -37,11 +38,11 @@ const Admin = () => {
   };
 
 
-  const getDoneData = async () => {
+  const getsentData = async () => {
     try {
-      const response = await fetch(`/admin/done/api`);
+      const response = await fetch(`/admin/sent/api`);
       const fetchedData = await response.json();
-      setDoneData(fetchedData);
+      setsentData(fetchedData);
     } catch (error) {
       console.error("Error fetching preorders:", error);
     } finally {
@@ -49,10 +50,23 @@ const Admin = () => {
     }
   };
 
+
+  const getpendingData = async () => {
+    try {
+      const response = await fetch(`/admin/pending/api`);
+      const fetchedData = await response.json();
+      setpendingData(fetchedData);
+    } catch (error) {
+      console.error("Error fetching preorders:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   useEffect(() => {
-    getNotDoneData();
-    getDoneData();
+    getunsentData();
+    getsentData();
+    getpendingData();
   }, []);
 
 
@@ -76,15 +90,25 @@ const Admin = () => {
       <div>
         <Tabs defaultValue="not-done" className="container py-10 mx-auto items-center">
           <TabsList>
-            <TabsTrigger value="not-done">Unfulfilled</TabsTrigger>
-            <TabsTrigger value="done">Fulfilled</TabsTrigger>
+            <TabsTrigger value="not-done">Unsent</TabsTrigger>
+            <TabsTrigger value="pending">Pending</TabsTrigger>
+            <TabsTrigger value="done">Sent</TabsTrigger>
           </TabsList>
           <TabsContent value="not-done">
               <div className="container mx-auto py-10">
               {loading ? (
                 <Skeleton />
               ) : (
-                <DataTable columns={columns} data={notDoneData} />
+                <DataTable columns={columns} data={unsentData} />
+              )}
+            </div>
+          </TabsContent>
+          <TabsContent value="pending">
+              <div className="container mx-auto py-10">
+              {loading ? (
+                <Skeleton />
+              ) : (
+                <DataTable columns={columns} data={pendingData} />
               )}
             </div>
           </TabsContent>
@@ -93,7 +117,7 @@ const Admin = () => {
               {loading ? (
                 <Skeleton />
               ) : (
-                <DataTable columns={columns} data={DoneData} />
+                <DataTable columns={columns} data={sentData} />
               )}
             </div>
           </TabsContent>

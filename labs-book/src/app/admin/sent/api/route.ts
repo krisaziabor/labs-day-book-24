@@ -1,5 +1,5 @@
 export async function GET() {
-    const url = process.env.DoneUrl;
+    const url = process.env.preordersAPIurl + 'sent';
     if (!url) {
         return new Response(JSON.stringify({ error: 'adminAPI URL is not defined' }), { status: 500 });
     }

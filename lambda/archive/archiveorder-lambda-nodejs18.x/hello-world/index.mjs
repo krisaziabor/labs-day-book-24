@@ -27,7 +27,7 @@ const pool = new Pool({
 
 export const handler = async (event) => {
   // query to update orders listed in given array of IDs as fulfilled
-  const query = `UPDATE orders SET fulfilled = true WHERE id = ANY($1::int[])`;
+  const query = `UPDATE preorders SET fulfilled = true WHERE id = ANY($1::int[])`;
 
   try {
     // parse IDs from event body

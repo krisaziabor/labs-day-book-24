@@ -3,7 +3,7 @@
 version = 0.1
 
 [default.global.parameters]
-stack_name = "template-lambda-nodejs18.x"
+stack_name = "archiveorder-lambda-nodejs18.x"
 
 [default.build.parameters]
 cached = true

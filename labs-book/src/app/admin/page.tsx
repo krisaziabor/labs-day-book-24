@@ -12,6 +12,9 @@ import "../globals.css";
 import { Preorder, columns } from "./components/columns";
 import { DataTable } from "./components/data-table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Separator } from "@/components/ui/separator"
+
 
 
 
@@ -57,20 +60,21 @@ const Admin = () => {
     <div>
       <div>
         <ClerkProvider>
-          <div>
+          <div className='container py-10 mx-auto items-center space-y-1'>
             <SignedOut>
               <SignInButton />
             </SignedOut>
             <SignedIn>
               <UserButton />
             </SignedIn>
-            <h1 className="container py-10 mx-auto items-center">Hey! Glad you&apos;re here :) Let&apos;s send out some books! </h1>
-            <h2 className="container py-10 mx-auto items-center">This administrator dashboard displays all the pre-order requests from the main page. Here, you can view all records, find a customer&apos;s email address, send them an automated confirmation, and officially mark their order as fulfilled. </h2>
+            <h1 className="text-sm font-medium leading-none">Hey! Glad you&apos;re here :) Let&apos;s send out some books! </h1>
+            <h2 className="text-sm text-muted-foreground">This administrator dashboard displays all the pre-order requests from the main page. Here, you can view all records, find a customer&apos;s email address, send them an automated confirmation, and officially mark their order as fulfilled. </h2>
+            <Separator />
           </div>
         </ClerkProvider>
       </div>
       <div>
-        <Tabs defaultValue="account" className="container py-10 mx-auto items-center">
+        <Tabs defaultValue="not-done" className="container py-10 mx-auto items-center">
           <TabsList>
             <TabsTrigger value="not-done">Unfulfilled</TabsTrigger>
             <TabsTrigger value="done">Fulfilled</TabsTrigger>
@@ -78,7 +82,7 @@ const Admin = () => {
           <TabsContent value="not-done">
               <div className="container mx-auto py-10">
               {loading ? (
-                <p>Loading...</p>
+                <Skeleton />
               ) : (
                 <DataTable columns={columns} data={notDoneData} />
               )}
@@ -87,7 +91,7 @@ const Admin = () => {
           <TabsContent value="done">
           <div className="container mx-auto py-10">
               {loading ? (
-                <p>Loading...</p>
+                <Skeleton />
               ) : (
                 <DataTable columns={columns} data={DoneData} />
               )}

@@ -1,4 +1,5 @@
 "use client";
+import React, { useState } from "react";
 
 import { ColumnDef } from "@tanstack/react-table"
 import { MoreHorizontal } from "lucide-react";
@@ -15,6 +16,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
+
+
 export type Preorder = {
     id: number;
     first_name: string;
@@ -25,6 +38,62 @@ export type Preorder = {
     created_at: string;
     email: string;
 };
+
+
+function ActionCell({ preorder }: { preorder: Preorder }) {
+  const [isAlertDialogOpen, setIsAlertDialogOpen] = useState(false);
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="h-8 w-8 p-0">
+          <span className="sr-only">Open menu</span>
+          <MoreHorizontal className="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        <DropdownMenuItem
+          onClick={(e) => {
+            e.preventDefault(); // Prevent DropdownMenu from closing
+            setIsAlertDialogOpen(true);
+          }}
+        >
+          Change fulfillment status
+        </DropdownMenuItem>
+        <AlertDialog open={isAlertDialogOpen} onOpenChange={setIsAlertDialogOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Only change the fulfillment status if you are sure the order has
+                been received by {preorder.first_name}.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={() => {
+                  // Handle confirmation logic here
+                  setIsAlertDialogOpen(false);
+                }}
+              >
+                Confirm
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+        <DropdownMenuItem
+          onClick={() => navigator.clipboard.writeText(preorder.email ?? "")}
+        >
+          Copy customer email address
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
+
 
 export const columns: ColumnDef<Preorder>[] = [
     {
@@ -94,23 +163,7 @@ export const columns: ColumnDef<Preorder>[] = [
           const preorder = row.original
      
           return (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="h-8 w-8 p-0">
-                  <span className="sr-only">Open menu</span>
-                  <MoreHorizontal className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                <DropdownMenuItem>Change fulfillment status</DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => navigator.clipboard.writeText(preorder.email ?? "")}
-                >
-                  Copy customer email address
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <ActionCell preorder={preorder} />
           )
         },
       },

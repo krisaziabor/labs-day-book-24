@@ -27,7 +27,12 @@ const Admin = () => {
 
   const getunsentData = async () => {
     try {
-      const response = await fetch(`/admin/unsent/api`);
+      const response = await fetch(`/admin/unsent/api`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const fetchedData = await response.json();
       setunsentData(fetchedData);
     } catch (error) {
@@ -40,7 +45,12 @@ const Admin = () => {
 
   const getsentData = async () => {
     try {
-      const response = await fetch(`/admin/sent/api`);
+      const response = await fetch(`/admin/sent/api`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const fetchedData = await response.json();
       setsentData(fetchedData);
     } catch (error) {
@@ -53,7 +63,12 @@ const Admin = () => {
 
   const getpendingData = async () => {
     try {
-      const response = await fetch(`/admin/pending/api`);
+      const response = await fetch(`/admin/pending/api`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const fetchedData = await response.json();
       setpendingData(fetchedData);
     } catch (error) {
@@ -122,6 +137,8 @@ const Admin = () => {
             </div>
           </TabsContent>
         </Tabs>
+      </div>
+      <div>
       </div>
     </div>
   );

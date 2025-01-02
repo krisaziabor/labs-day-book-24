@@ -14,3 +14,27 @@ export async function GET() {
     return new Response(JSON.stringify(data), { status: 200 });
 
 }
+
+export async function PATCH(request: Request) {
+    const requestUrl = new URL(request.url);
+    const id = requestUrl.searchParams.get('id');
+    const url = process.env.preordersAPIurl + 'pending?id=' + id;
+    if (!url) {
+        return new Response(JSON.stringify({ error: 'adminAPI URL is not defined' }), { status: 500 });
+    }
+
+    const response = await fetch(url, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    const message = await response.json();
+    if (response.ok) {
+        return new Response(JSON.stringify(message), { status: 200 });
+    } else {
+        return new Response(JSON.stringify(message), { status: 400 });
+    }
+        
+}

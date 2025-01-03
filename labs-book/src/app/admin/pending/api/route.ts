@@ -16,25 +16,37 @@ export async function GET() {
 }
 
 export async function PATCH(request: Request) {
-    const requestUrl = new URL(request.url);
-    const id = requestUrl.searchParams.get('id');
-    const url = process.env.preordersAPIurl + 'pending?id=' + id;
-    if (!url) {
-        return new Response(JSON.stringify({ error: 'adminAPI URL is not defined' }), { status: 500 });
-    }
+    try {
+        const requestUrl = new URL(request.url);
+        const id = requestUrl.searchParams.get('id');
 
-    const response = await fetch(url, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
+        if (!id) {
+            return new Response(JSON.stringify({ error: 'id is required' }), { status: 400 });
+        }
 
-    const message = await response.json();
-    if (response.ok) {
-        return new Response(JSON.stringify(message), { status: 200 });
-    } else {
-        return new Response(JSON.stringify(message), { status: 400 });
-    }
-        
+        const url = `${process.env.preordersAPIurl}pending?id=${id}`;
+        if (!url) {
+            return new Response(JSON.stringify({ error: 'adminAPI URL is not defined' }), { status: 500 });
+        }
+
+        const response = await fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const message = await response.json();
+        if (response.ok) {
+            return new Response(JSON.stringify(message), { status: 200 });
+        } else {
+            return new Response(JSON.stringify(message), { status: 400 });
+        }
+    } catch (error) {
+        console.error('Error updating fulfillment status:', error);
+        return new Response(
+            JSON.stringify({ error: 'An unexpected error occurred'}),
+            { status: 500 }
+        );
+    }    
 }

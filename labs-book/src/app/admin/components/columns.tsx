@@ -27,6 +27,8 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 
+import { updateFulfillmentStatus } from "../utils/updateStatus";
+import { getAlertDialogDescription } from "../utils/getAlertDialogDescription";
 
 export type Preorder = {
     id: number;
@@ -37,6 +39,8 @@ export type Preorder = {
     pay_details: string | null;
     created_at: string;
     email: string;
+    fulfilled: boolean;
+    pending: boolean;
 };
 
 
@@ -66,15 +70,15 @@ function ActionCell({ preorder }: { preorder: Preorder }) {
             <AlertDialogHeader>
               <AlertDialogTitle>Are you sure?</AlertDialogTitle>
               <AlertDialogDescription>
-                Only change the fulfillment status if you are sure the order has
-                been received by {preorder.first_name}.
+                {getAlertDialogDescription(preorder)}
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <AlertDialogAction
-                onClick={() => {
+                onClick={async () => {
                   // Handle confirmation logic here
+                  await updateFulfillmentStatus(preorder.id, preorder.fulfilled, preorder.pending);
                   setIsAlertDialogOpen(false);
                 }}
               >

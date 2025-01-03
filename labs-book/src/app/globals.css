@@ -115,3 +115,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+.alert {
+  opacity: 1;
+  transition: opacity 0.5s ease-out; /* Adjust duration for fade-out effect */
+}
+
+.alert-hidden {
+  opacity: 0;
+}

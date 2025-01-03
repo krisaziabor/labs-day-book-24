@@ -16,19 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
-
-import { updateFulfillmentStatus } from "../utils/updateStatus";
-import { getAlertDialogDescription } from "../utils/getAlertDialogDescription";
+import { ChangeStatusDialog } from "./change-status";
 
 export type Preorder = {
     id: number;
@@ -45,7 +33,7 @@ export type Preorder = {
 
 
 function ActionCell({ preorder }: { preorder: Preorder }) {
-  const [isAlertDialogOpen, setIsAlertDialogOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   return (
     <DropdownMenu>
@@ -60,39 +48,22 @@ function ActionCell({ preorder }: { preorder: Preorder }) {
         <DropdownMenuItem
           onClick={(e) => {
             e.preventDefault(); // Prevent DropdownMenu from closing
-            setIsAlertDialogOpen(true);
+            setIsDialogOpen(true);
           }}
         >
           Change fulfillment status
         </DropdownMenuItem>
-        <AlertDialog open={isAlertDialogOpen} onOpenChange={setIsAlertDialogOpen}>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-              <AlertDialogDescription>
-                {getAlertDialogDescription(preorder)}
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction
-                onClick={async () => {
-                  // Handle confirmation logic here
-                  await updateFulfillmentStatus(preorder.id, preorder.fulfilled, preorder.pending);
-                  setIsAlertDialogOpen(false);
-                }}
-              >
-                Confirm
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
         <DropdownMenuItem
           onClick={() => navigator.clipboard.writeText(preorder.email ?? "")}
         >
           Copy customer email address
         </DropdownMenuItem>
       </DropdownMenuContent>
+      <ChangeStatusDialog
+          preorder={preorder}
+          isOpen={isDialogOpen}
+          onClose={() => setIsDialogOpen(false)}
+          />
     </DropdownMenu>
   );
 }

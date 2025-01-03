@@ -1,3 +1,7 @@
+import { EmailTemplate } from "../../components/email-user-update";
+import { Resend } from 'resend';
+import * as React from 'react';
+
 export async function GET() {
     const url = process.env.preordersAPIurl + 'pending';
     if (!url) {
@@ -49,4 +53,40 @@ export async function PATCH(request: Request) {
             { status: 500 }
         );
     }    
+}
+
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+export async function POST(request: Request) {
+    try {
+        const requestUrl = new URL(request.url);
+        const userName = requestUrl.searchParams.get('name');
+        if (!userName) {
+            return new Response(JSON.stringify({ error: 'name is required' }), { status: 400 });
+        }
+        const userEmail = requestUrl.searchParams.get('email');
+        if (!userEmail) {
+            return new Response(JSON.stringify({ error: 'email is required' }), { status: 400 });
+        }
+        
+        const { data, error } = await resend.emails.send({
+            from: 'Design at Yale <orders@designatyalebooks.com>',
+            to: [userEmail],
+            subject: 'Order Update',
+            react: EmailTemplate({ firstName: userName }) as React.ReactElement,
+        });
+
+        if (error) {
+            return new Response(JSON.stringify({ error }), { status: 500 });
+        }
+
+        return Response.json(data);
+    } catch (error) {
+        console.error('Error sending email:', error);
+        return new Response(
+            JSON.stringify({ error: 'An unexpected error occurred'}),
+            { status: 500 }
+        );
+    }
 }

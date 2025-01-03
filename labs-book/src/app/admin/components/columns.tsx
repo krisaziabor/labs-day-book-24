@@ -71,75 +71,76 @@ function ActionCell({ preorder }: { preorder: Preorder }) {
 
 
 export const columns: ColumnDef<Preorder>[] = [
-    {
-        id: "select",
-        header: ({ table }) => (
-            <Checkbox
-                checked={
-                    table.getIsAllPageRowsSelected() ||
-                    (table.getIsSomePageRowsSelected() && "indeterminate")
-                }
-                onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-                aria-label="Select all"
-            />
-        ),
-        cell: ({ row }) => (
-            <Checkbox
-            checked={row.getIsSelected()}
-            onCheckedChange={(value) => row.toggleSelected(!!value)}
-            aria-label="Select row"
-        />
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+        className="mr-2"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+        className="mr-2"
+      />
     ),
     enableSorting: false,
     enableHiding: false,
+  },
+  {
+    accessorKey: "created_at",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() == "asc")}
+          className="p-0 border-0 hover:bg-transparent"
+        >
+          Order date
+          <ArrowUpDown className="h-4 w-4" />
+        </Button>
+      );
     },
-    {
-        accessorKey: "created_at",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() == "asc")}
-                >
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                    Order date
-                </Button>
-            )
-        },
-        cell: ({ row }) => {
-            const preorder = row.original
-            const date = new Date(preorder.created_at)
-            return <div>{date.toLocaleDateString()}</div>
-        }
+    cell: ({ row }) => {
+      const preorder = row.original;
+      const date = new Date(preorder.created_at);
+      return <div>{date.toLocaleDateString()}</div>;
     },
-    {
-        accessorKey: "first_name",
-        header: "First name",
+  },
+  {
+    accessorKey: "first_name",
+    header: "First name",
+  },
+  {
+    accessorKey: "last_name",
+    header: "Last name",
+  },
+  {
+    accessorKey: "college",
+    header: "Residential college",
+  },
+  {
+    accessorKey: "payment_method",
+    header: "Payment method",
+  },
+  {
+    accessorKey: "pay_details",
+    header: "Username/phone number",
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => {
+      const preorder = row.original;
+
+      return <ActionCell preorder={preorder} />;
     },
-    {
-        accessorKey: "last_name",
-        header: "Last name",
-    },
-    {
-        accessorKey: "college",
-        header: "Residential college",
-    },
-    {
-        accessorKey: "payment_method",
-        header: "Payment method",
-    },
-    {
-        accessorKey: "pay_details",
-        header: "Username/phone number",
-    },
-    {
-        id: "actions",
-        cell: ({ row }) => {
-          const preorder = row.original
-     
-          return (
-            <ActionCell preorder={preorder} />
-          )
-        },
-      },
-]
+  },
+];

@@ -17,11 +17,11 @@ const Admin = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchData(`/admin/unsent/api`, setunsentData, setLoading);
-    fetchData(`/admin/sent/api`, setsentData, setLoading);
-    fetchData(`/admin/pending/api`, setpendingData, setLoading);
-    fetchData(`/admin/awaiting-user-action/api`, setawaitingUserActionData, setLoading);
-    fetchData(`/admin/awaiting-verification/api`, setawaitingVerificationData, setLoading);
+    fetchData(`/admin/statuses/unsent/api`, setunsentData, setLoading);
+    fetchData(`/admin/statuses/sent/api`, setsentData, setLoading);
+    fetchData(`/admin/statuses/pending/api`, setpendingData, setLoading);
+    fetchData(`/admin/statuses/awaiting-user-action/api`, setawaitingUserActionData, setLoading);
+    fetchData(`/admin/statuses/awaiting-verification/api`, setawaitingVerificationData, setLoading);
   }, []);
 
   return (

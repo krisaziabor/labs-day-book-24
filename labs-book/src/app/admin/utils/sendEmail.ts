@@ -1,7 +1,7 @@
 export async function sendEmail(email: string, name: string) {
   try {
 
-    const url = `/admin/pending/api/?name=${name}&email=${email}`;
+    const url = `/admin/statuses/pending/api/?name=${name}&email=${email}`;
 
     const response = await fetch(url, {
       method: "POST",

@@ -4,11 +4,11 @@ export async function updateFulfillmentStatus(preorderId: number, isFulfilled: b
     let url = `/admin/STATUS_GOES_HERE/api/?id=${preorderId}`;
     
     if (isPending) {
-        url = `/admin/pending/api/?id=${preorderId}`;
+        url = `/admin/statuses/pending/api/?id=${preorderId}`;
     } else if (isFulfilled) {
-        url = `/admin/sent/api/?id=${preorderId}`;
+        url = `/admin/statuses/sent/api/?id=${preorderId}`;
     } else if (!isFulfilled && !isPending) {
-        url = `/admin/unsent/api/?id=${preorderId}`;
+        url = `/admin/statuses/unsent/api/?id=${preorderId}`;
     }
 
     const response = await fetch(url, {

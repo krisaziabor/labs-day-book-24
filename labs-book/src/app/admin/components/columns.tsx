@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 import { ChangeStatusDialog } from "./change-status";
+import { VerifyPaymentDialog } from "./verify-payment";
 
 export type Preorder = {
     id: number;
@@ -29,11 +30,13 @@ export type Preorder = {
     email: string;
     fulfilled: boolean;
     pending: boolean;
+    verified: boolean;
 };
 
 
 function ActionCell({ preorder }: { preorder: Preorder }) {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isChangeDialogOpen, setIsChangeDialogOpen] = useState(false);
+  const [isVerifyDialogOpen, setIsVerifyDialogOpen] = useState(false);
 
   return (
     <DropdownMenu>
@@ -48,7 +51,15 @@ function ActionCell({ preorder }: { preorder: Preorder }) {
         <DropdownMenuItem
           onClick={(e) => {
             e.preventDefault(); // Prevent DropdownMenu from closing
-            setIsDialogOpen(true);
+            setIsVerifyDialogOpen(true);
+          }}
+        >
+          Verify payment
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={(e) => {
+            e.preventDefault(); // Prevent DropdownMenu from closing
+            setIsChangeDialogOpen(true);
           }}
         >
           Change fulfillment status
@@ -61,8 +72,13 @@ function ActionCell({ preorder }: { preorder: Preorder }) {
       </DropdownMenuContent>
       <ChangeStatusDialog
           preorder={preorder}
-          isOpen={isDialogOpen}
-          onClose={() => setIsDialogOpen(false)}
+          isOpen={isChangeDialogOpen}
+          onClose={() => setIsChangeDialogOpen(false)}
+          />
+      <VerifyPaymentDialog
+          preorder={preorder}
+          isOpen={isVerifyDialogOpen}
+          onClose={() => setIsVerifyDialogOpen(false)}
           />
     </DropdownMenu>
   );

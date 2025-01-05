@@ -21,7 +21,7 @@ const Admin = () => {
   }, []);
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex justify-center items-center min-h-screen px-10 w-full">
       <div className="w-full max-w-4xl mx-auto">
       <Tabs
       defaultValue="not-done"
@@ -33,7 +33,7 @@ const Admin = () => {
       <TabsTrigger value="done">Sent</TabsTrigger>
       </TabsList>
       <TabsContent value="not-done">
-      <div className="container mx-auto py-10">
+      <div className="container mx-auto">
         {loading ? (
         <Skeleton />
         ) : (
@@ -42,7 +42,7 @@ const Admin = () => {
       </div>
       </TabsContent>
       <TabsContent value="pending">
-      <div className="container mx-auto py-10">
+      <div className="container mx-auto">
         {loading ? (
         <Skeleton />
         ) : (
@@ -51,7 +51,7 @@ const Admin = () => {
       </div>
       </TabsContent>
       <TabsContent value="done">
-      <div className="container mx-auto py-10">
+      <div className="container mx-auto">
         {loading ? (
         <Skeleton />
         ) : (

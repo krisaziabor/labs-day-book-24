@@ -48,11 +48,6 @@ const homeItem = [
 
 const docItems = [
   {
-    title: "Designing the Workflow",
-    url: "admin/docs/design",
-    icon: NotebookPen,
-  },
-  {
     title: "Workflow Introduction",
     url: "docs/workflow",
     icon: Layers,
@@ -71,6 +66,11 @@ const docItems = [
     title: "Colophon",
     url: "docs/colophon",
     icon: Heart,
+  },
+  {
+    title: "Designing the Dashboard",
+    url: "admin/docs/design",
+    icon: NotebookPen,
   },
 ];
 

@@ -28,6 +28,8 @@ const Admin = () => {
       className="container py mx-auto items-center"
       >
       <TabsList>
+      <TabsTrigger value="verified?">Awaiting verification</TabsTrigger>
+      <TabsTrigger value="unverified">Customer action required</TabsTrigger>
       <TabsTrigger value="not-done">Unsent</TabsTrigger>
       <TabsTrigger value="pending">Pending</TabsTrigger>
       <TabsTrigger value="done">Sent</TabsTrigger>

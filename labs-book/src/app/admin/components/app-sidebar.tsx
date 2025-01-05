@@ -23,6 +23,7 @@ import {
   Heart,
   House,
   NotebookPen,
+  BadgeDollarSign,
 } from "lucide-react";
 
 import { Separator } from "@/components/ui/separator";
@@ -74,6 +75,11 @@ const docItems = [
 ];
 
 const groupActions = [
+  {
+    title: "Verify Payments",
+    url: "#",
+    icon: BadgeDollarSign,
+  },
   {
     title: "Email Customers",
     url: "#",

@@ -126,13 +126,13 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
         <SidebarGroup>
-          <SidebarGroupLabel>Documentation</SidebarGroupLabel>
+          <SidebarGroupLabel>Group Actions</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {docItems.map((item) => (
+              {groupActions.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <a href="#">
                       <item.icon />
                       <span>{item.title}</span>
                     </a>
@@ -143,13 +143,13 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
         <SidebarGroup>
-          <SidebarGroupLabel>Group Actions</SidebarGroupLabel>
+          <SidebarGroupLabel>Documentation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {groupActions.map((item) => (
+              {docItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href="#">
+                    <a href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
                     </a>

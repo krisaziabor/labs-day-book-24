@@ -13,6 +13,7 @@ const Admin = () => {
   const [sentData, setsentData] = useState<Preorder[]>([]);
   const [pendingData, setpendingData] = useState<Preorder[]>([]);
   const [awaitingUserActionData, setawaitingUserActionData] = useState<Preorder[]>([]);
+  const [awaitingVerificationData, setawaitingVerificationData] = useState<Preorder[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -20,6 +21,7 @@ const Admin = () => {
     fetchData(`/admin/sent/api`, setsentData, setLoading);
     fetchData(`/admin/pending/api`, setpendingData, setLoading);
     fetchData(`/admin/awaiting-user-action/api`, setawaitingUserActionData, setLoading);
+    fetchData(`/admin/awaiting-verification/api`, setawaitingVerificationData, setLoading);
   }, []);
 
   return (
@@ -36,6 +38,15 @@ const Admin = () => {
       <TabsTrigger value="pending">Pending</TabsTrigger>
       <TabsTrigger value="done">Sent</TabsTrigger>
       </TabsList>
+      <TabsContent value="verified?">
+      <div className="container mx-auto">
+        {loading ? (
+        <Skeleton />
+        ) : (
+        <DataTable columns={columns} data={awaitingVerificationData} />
+        )}
+      </div>
+      </TabsContent>
       <TabsContent value="unverified">
       <div className="container mx-auto">
         {loading ? (

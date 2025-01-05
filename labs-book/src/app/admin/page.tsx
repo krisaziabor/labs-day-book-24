@@ -12,12 +12,14 @@ const Admin = () => {
   const [unsentData, setunsentData] = useState<Preorder[]>([]);
   const [sentData, setsentData] = useState<Preorder[]>([]);
   const [pendingData, setpendingData] = useState<Preorder[]>([]);
+  const [awaitingUserActionData, setawaitingUserActionData] = useState<Preorder[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchData(`/admin/unsent/api`, setunsentData, setLoading);
     fetchData(`/admin/sent/api`, setsentData, setLoading);
     fetchData(`/admin/pending/api`, setpendingData, setLoading);
+    fetchData(`/admin/awaiting-user-action/api`, setawaitingUserActionData, setLoading);
   }, []);
 
   return (
@@ -34,6 +36,15 @@ const Admin = () => {
       <TabsTrigger value="pending">Pending</TabsTrigger>
       <TabsTrigger value="done">Sent</TabsTrigger>
       </TabsList>
+      <TabsContent value="unverified">
+      <div className="container mx-auto">
+        {loading ? (
+        <Skeleton />
+        ) : (
+        <DataTable columns={columns} data={awaitingUserActionData} />
+        )}
+      </div>
+      </TabsContent>
       <TabsContent value="not-done">
       <div className="container mx-auto">
         {loading ? (

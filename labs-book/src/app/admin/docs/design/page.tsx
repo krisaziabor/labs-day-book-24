@@ -1,7 +1,7 @@
 import React from "react";
 import { Separator } from "@/components/ui/separator";
 
-const AdminDashboard: React.FC = () => {
+const Document: React.FC = () => {
   return (
     <div className="flex flex-row">
       <div className="flex flex-col items-start px-2 py-4 mx-20 w-2/5">
@@ -94,4 +94,4 @@ const AdminDashboard: React.FC = () => {
   );
 };
 
-export default AdminDashboard;
+export default Document;

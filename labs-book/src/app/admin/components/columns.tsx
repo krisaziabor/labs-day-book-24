@@ -54,9 +54,10 @@ function ActionCell({ preorder }: { preorder: Preorder }) {
             setIsVerifyDialogOpen(true);
           }}
         >
-          Verify payment
+          Verify/flag payment
         </DropdownMenuItem>
         <DropdownMenuItem
+          disabled={!preorder.verified}
           onClick={(e) => {
             e.preventDefault(); // Prevent DropdownMenu from closing
             setIsChangeDialogOpen(true);

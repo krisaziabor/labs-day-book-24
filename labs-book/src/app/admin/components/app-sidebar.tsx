@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-
 import {
   Sidebar,
   SidebarContent,
@@ -16,9 +15,6 @@ import {
 
 import {
   Inbox,
-  RotateCcw,
-  CircleDotDashed,
-  CircleCheck,
   UsersRound,
   UserRound,
   Layers,
@@ -26,12 +22,11 @@ import {
   House,
   NotebookPen,
   BadgeDollarSign,
+  CircleArrowRight,
 } from "lucide-react";
 
 import { Separator } from "@/components/ui/separator";
-
 import {
-  ClerkProvider,
   SignInButton,
   SignedIn,
   SignedOut,
@@ -39,79 +34,40 @@ import {
 } from "@clerk/nextjs";
 
 import { VerifyPaymentsDialog } from "./group-actions/verify-payments";
+import { ChangeStatusesDialog } from "./group-actions/push-new-status";
 
 // Menu items.
-
 const homeItem = [
-  {
-    title: "Home",
-    url: "/admin",
-    icon: House,
-  },
+  { title: "Home", url: "/admin", icon: House },
 ];
 
 const docItems = [
-  {
-    title: "Workflow Introduction",
-    url: "docs/workflow",
-    icon: Layers,
-  },
-  {
-    title: "Individual User Actions",
-    url: "docs/user-actions",
-    icon: UserRound,
-  },
-  {
-    title: "Group Actions",
-    url: "docs/group-actions",
-    icon: UsersRound,
-  },
-  {
-    title: "Colophon",
-    url: "docs/colophon",
-    icon: Heart,
-  },
-  {
-    title: "Designing the Dashboard",
-    url: "admin/docs/design",
-    icon: NotebookPen,
-  },
+  { title: "Workflow Introduction", url: "docs/workflow", icon: Layers },
+  { title: "Individual User Actions", url: "docs/user-actions", icon: UserRound },
+  { title: "Group Actions", url: "docs/group-actions", icon: UsersRound },
+  { title: "Colophon", url: "docs/colophon", icon: Heart },
+  { title: "Designing the Dashboard", url: "admin/docs/design", icon: NotebookPen },
 ];
 
 const groupActions = [
-  {
-    title: "Verify Payments",
-    action: "verifyPayments",
-    icon: BadgeDollarSign,
-  },
-  {
-    title: "Mark as Pending",
-    action: "#",
-    icon: CircleDotDashed,
-  },
-  {
-    title: "Mark as Confirmed",
-    action: "#",
-    icon: CircleCheck,
-  },
-  {
-    title: "Mark as Unsent",
-    action: "#",
-    icon: RotateCcw,
-  },
-  {
-    title: "Email Customers",
-    action: "#",
-    icon: Inbox,
-  },
+  { title: "Verify Payments", action: "verifyPayments", icon: BadgeDollarSign },
+  { title: "Push New Status", action: "changeStatus", icon: CircleArrowRight },
+  { title: "Email Customers", action: "#", icon: Inbox },
 ];
 
-export function AppSidebar() {
+interface AppSidebarProps {
+  currentTab: string;
+}
+
+export function AppSidebar({ currentTab }: AppSidebarProps) {
   const [isVerifyDialogOpen, setIsVerifyDialogOpen] = useState(false);
+  const [isChangeStatusDialogOpen, setIsChangeStatusDialogOpen] = useState(false);
 
   const handleActionClick = (action: string) => {
     if (action === "verifyPayments") {
       setIsVerifyDialogOpen(true);
+    } else if (action === "changeStatus") {
+      setIsChangeStatusDialogOpen(true);
     }
   };
 
@@ -137,6 +93,7 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
         <SidebarGroup>
           <SidebarGroupLabel>Group Actions</SidebarGroupLabel>
           <SidebarGroupContent>
@@ -145,6 +102,11 @@ export function AppSidebar() {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
                     onClick={() => handleActionClick(item.action)}
+                    disabled={
+                      (item.action === "changeStatus" &&
+                      (currentTab === "verified?" || currentTab === "unverified")) ||
+                      (item.action === "verifyPayments" && currentTab !== "verified?" && currentTab !== "unverified")
+                    } // Disable for specific tabs
                   >
                     <item.icon />
                     <span>{item.title}</span>
@@ -154,6 +116,7 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
         <SidebarGroup>
           <SidebarGroupLabel>Documentation</SidebarGroupLabel>
           <SidebarGroupContent>
@@ -172,6 +135,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -188,21 +152,24 @@ export function AppSidebar() {
               Need help? Reach out to Kris via text.
             </p>
             <div className="px-2 py-2">
-              <ClerkProvider>
                 <SignedOut>
                   <SignInButton />
                 </SignedOut>
                 <SignedIn>
                   <UserButton />
                 </SignedIn>
-              </ClerkProvider>
             </div>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
+
       <VerifyPaymentsDialog
         isOpen={isVerifyDialogOpen}
         onClose={() => setIsVerifyDialogOpen(false)}
+      />
+      <ChangeStatusesDialog
+        isOpen={isChangeStatusDialogOpen}
+        onClose={() => setIsChangeStatusDialogOpen(false)}
       />
     </Sidebar>
   );

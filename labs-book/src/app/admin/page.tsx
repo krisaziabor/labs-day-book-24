@@ -7,6 +7,7 @@ import { DataTable } from "./components/data-table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { fetchData } from "./utils/fetchData";
+import { AppSidebar } from "./components/app-sidebar";
 
 const Admin = () => {
   const [unsentData, setunsentData] = useState<Preorder[]>([]);
@@ -19,6 +20,7 @@ const Admin = () => {
     Preorder[]
   >([]);
   const [loading, setLoading] = useState(true);
+  const [currentTab, setCurrentTab] = useState<string>("not-done"); // Track the current tab
 
   useEffect(() => {
     fetchData(`/admin/statuses/unsent/api`, setunsentData, setLoading);
@@ -38,18 +40,28 @@ const Admin = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen px-10 w-full">
+      <AppSidebar currentTab={currentTab} /> {/* Pass current tab to sidebar */}
       <div className="w-full max-w-4xl mx-auto">
         <Tabs
           defaultValue="not-done"
           className="container py mx-auto items-center"
+          onValueChange={(value) => setCurrentTab(value)} // Update tab state on change
         >
           <TabsList>
-            <TabsTrigger value="verified?"> ({awaitingVerificationData.length}) Awaiting verification</TabsTrigger>
-            <TabsTrigger value="unverified">
-            ({awaitingUserActionData.length}) Customer action required
+            <TabsTrigger value="verified?">
+              {" "}
+              ({awaitingVerificationData.length}) Awaiting verification
             </TabsTrigger>
-            <TabsTrigger value="not-done"> ({unsentData.length}) Unsent</TabsTrigger>
-            <TabsTrigger value="pending">({pendingData.length}) Pending</TabsTrigger>
+            <TabsTrigger value="unverified">
+              ({awaitingUserActionData.length}) Customer action required
+            </TabsTrigger>
+            <TabsTrigger value="not-done">
+              {" "}
+              ({unsentData.length}) Unsent
+            </TabsTrigger>
+            <TabsTrigger value="pending">
+              ({pendingData.length}) Pending
+            </TabsTrigger>
             <TabsTrigger value="done">({sentData.length}) Sent</TabsTrigger>
           </TabsList>
           <TabsContent value="verified?">

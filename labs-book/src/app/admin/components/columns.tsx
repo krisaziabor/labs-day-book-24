@@ -49,6 +49,7 @@ function ActionCell({ preorder }: { preorder: Preorder }) {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem
+          disabled={preorder.verified}
           onClick={(e) => {
             e.preventDefault(); // Prevent DropdownMenu from closing
             setIsVerifyDialogOpen(true);

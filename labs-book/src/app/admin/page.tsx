@@ -20,7 +20,7 @@ const Admin = () => {
     Preorder[]
   >([]);
   const [loading, setLoading] = useState(true);
-  const [currentTab, setCurrentTab] = useState<string>("not-done"); // Track the current tab
+  const [currentTab, setCurrentTab] = useState<string>("verified?"); // Track the current tab
 
   useEffect(() => {
     fetchData(`/admin/statuses/unsent/api`, setunsentData, setLoading);
@@ -39,7 +39,7 @@ const Admin = () => {
   }, []);
 
   return (
-    <div className="flex justify-center items-center min-h-screen px-10 w-full">
+    <div className="flex flex-col items-center justify-center min-h-screen px-2 py-4 mx-20 w-full">
       <AppSidebar currentTab={currentTab} /> {/* Pass current tab to sidebar */}
       <div className="w-full max-w-4xl mx-auto">
         <Tabs

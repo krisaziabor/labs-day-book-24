@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -42,11 +42,11 @@ const homeItem = [
 ];
 
 const docItems = [
-  { title: "Workflow Introduction", url: "docs/workflow", icon: Layers },
-  { title: "Individual User Actions", url: "docs/user-actions", icon: UserRound },
-  { title: "Group Actions", url: "docs/group-actions", icon: UsersRound },
-  { title: "Colophon", url: "docs/colophon", icon: Heart },
-  { title: "Designing the Dashboard", url: "admin/docs/design", icon: NotebookPen },
+  { title: "Workflow Introduction", url: "/admin/docs/workflow", icon: Layers },
+  { title: "Individual User Actions", url: "/admin/docs/user-actions", icon: UserRound },
+  { title: "Group Actions", url: "/admin/docs/group-actions", icon: UsersRound },
+  { title: "Colophon", url: "/admin/docs/colophon", icon: Heart },
+  { title: "Designing the Dashboard", url: "/admin/docs/design", icon: NotebookPen },
 ];
 
 const groupActions = [
@@ -62,6 +62,16 @@ interface AppSidebarProps {
 export function AppSidebar({ currentTab }: AppSidebarProps) {
   const [isVerifyDialogOpen, setIsVerifyDialogOpen] = useState(false);
   const [isChangeStatusDialogOpen, setIsChangeStatusDialogOpen] = useState(false);
+
+  const [isDocsPage, setIsDocsPage] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setIsDocsPage(window.location.pathname.includes("/docs"));
+    }
+  }, []);
+
+  console.log("current tab:", currentTab);
 
   const handleActionClick = (action: string) => {
     if (action === "verifyPayments") {
@@ -101,14 +111,14 @@ export function AppSidebar({ currentTab }: AppSidebarProps) {
               {groupActions.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
-                    onClick={() => handleActionClick(item.action)}
-                    disabled={
-                      (item.action === "changeStatus" &&
-                      (currentTab === "verified?" || currentTab === "unverified")) ||
-                      (item.action === "verifyPayments" && currentTab !== "verified?" && currentTab !== "unverified")
-                    } // Disable for specific tabs
+                  onClick={() => handleActionClick(item.action)}
+                  disabled={isDocsPage || 
+                    (item.action === "changeStatus" &&
+                    (currentTab === "verified?" || currentTab === "unverified")) ||
+                    (item.action === "verifyPayments" && (currentTab == "not-done" || currentTab == "pending" || currentTab == "done"))
+                  }
                   >
-                    <item.icon />
+                  <item.icon />
                     <span>{item.title}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

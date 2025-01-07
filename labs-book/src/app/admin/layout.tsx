@@ -23,6 +23,15 @@ export default async function Layout({
           </SidebarProvider>
         </SelectedRowsProvider>
       </ClerkProvider>
+      <div className="block md:hidden lg:hidden xl:hidden">
+        <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
+          <div className="text-center">
+            <p className="text-xl font-semibold pb-2">DAY BOOK 2024 ADMIN DASHBOARD</p>
+            <p className="text-xl font-semibold pb-2">FOR INTERNAL USE @ DESIGN AT YALE</p>
+            <p className="text-sm">This website is for desktop use only.</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

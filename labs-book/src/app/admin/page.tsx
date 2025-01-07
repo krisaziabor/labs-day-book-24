@@ -43,7 +43,7 @@ const Admin = () => {
       <AppSidebar currentTab={currentTab} /> {/* Pass current tab to sidebar */}
       <div className="w-full max-w-4xl mx-auto">
         <Tabs
-          defaultValue="not-done"
+          defaultValue="verified?"
           className="container py mx-auto items-center"
           onValueChange={(value) => setCurrentTab(value)} // Update tab state on change
         >

@@ -1,5 +1,7 @@
 "use client";
 
+import React, { useState } from "react";
+
 import {
   Sidebar,
   SidebarContent,
@@ -35,6 +37,8 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
+
+import { VerifyPaymentsDialog } from "./group-actions/verify-payments";
 
 // Menu items.
 
@@ -77,32 +81,40 @@ const docItems = [
 const groupActions = [
   {
     title: "Verify Payments",
-    url: "#",
+    action: "verifyPayments",
     icon: BadgeDollarSign,
   },
   {
-    title: "Email Customers",
-    url: "#",
-    icon: Inbox,
-  },
-  {
     title: "Mark as Pending",
-    url: "#",
+    action: "#",
     icon: CircleDotDashed,
   },
   {
     title: "Mark as Confirmed",
-    url: "#",
+    action: "#",
     icon: CircleCheck,
   },
   {
     title: "Mark as Unsent",
-    url: "#",
+    action: "#",
     icon: RotateCcw,
+  },
+  {
+    title: "Email Customers",
+    action: "#",
+    icon: Inbox,
   },
 ];
 
 export function AppSidebar() {
+  const [isVerifyDialogOpen, setIsVerifyDialogOpen] = useState(false);
+
+  const handleActionClick = (action: string) => {
+    if (action === "verifyPayments") {
+      setIsVerifyDialogOpen(true);
+    }
+  };
+
   return (
     <Sidebar>
       <SidebarContent>
@@ -131,11 +143,11 @@ export function AppSidebar() {
             <SidebarMenu>
               {groupActions.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href="#">
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
+                  <SidebarMenuButton
+                    onClick={() => handleActionClick(item.action)}
+                  >
+                    <item.icon />
+                    <span>{item.title}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -168,13 +180,9 @@ export function AppSidebar() {
               Hey! Glad you&apos;re here :) Let&apos;s send out some books!
             </p>
             <p className="text-xs text-muted-foreground rounded-md py-2 px-2">
-              This administrator dashboard displays all the pre-order requests
-              from the main page. Here you can view all records (unsent,
-              pending, and sent), move orders ahead in the cycle, send them an
-              automated confirmation, and finally mark their order as confirmed.
-            </p>
-            <p className="text-xs text-muted-foreground rounded-md py-2 px-2">
-              Tip: Use ⌘ + b at anytime to toggle the sidebar.
+              This is a confidential tool designed for the DAY Book 2024. As it
+              is meant for internal use only, please do not give anyone outside
+              the team account access.
             </p>
             <p className="text-xs text-muted-foreground rounded-md py-2 px-2">
               Need help? Reach out to Kris via text.
@@ -192,6 +200,10 @@ export function AppSidebar() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
+      <VerifyPaymentsDialog
+        isOpen={isVerifyDialogOpen}
+        onClose={() => setIsVerifyDialogOpen(false)}
+      />
     </Sidebar>
   );
 }

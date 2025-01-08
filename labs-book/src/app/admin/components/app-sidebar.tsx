@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import {
   Sidebar,
@@ -23,30 +24,41 @@ import {
   NotebookPen,
   BadgeDollarSign,
   CircleArrowRight,
+  SendHorizonal,
 } from "lucide-react";
 
 import { Separator } from "@/components/ui/separator";
-import {
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 import { VerifyPaymentsDialog } from "./group-actions/verify-payments";
 import { ChangeStatusesDialog } from "./group-actions/push-new-status";
 
 // Menu items.
-const homeItem = [
-  { title: "Home", url: "/admin", icon: House },
-];
+const homeItem = [{ title: "Home", url: "/admin", icon: House }];
 
 const docItems = [
   { title: "Workflow Introduction", url: "/admin/docs/workflow", icon: Layers },
-  { title: "Individual User Actions", url: "/admin/docs/user-actions", icon: UserRound },
-  { title: "Group Actions", url: "/admin/docs/group-actions", icon: UsersRound },
+  {
+    title: "Single User Actions",
+    url: "/admin/docs/user-actions",
+    icon: UserRound,
+  },
+  {
+    title: "Group Actions",
+    url: "/admin/docs/group-actions",
+    icon: UsersRound,
+  },
+  {
+    title: "Automated Emails",
+    url: "/admin/docs/automated-emails",
+    icon: SendHorizonal,
+  },
   { title: "Colophon", url: "/admin/docs/colophon", icon: Heart },
-  { title: "Designing the Dashboard", url: "/admin/docs/design", icon: NotebookPen },
+  {
+    title: "Designing the Dashboard",
+    url: "/admin/docs/design",
+    icon: NotebookPen,
+  },
 ];
 
 const groupActions = [
@@ -61,7 +73,8 @@ interface AppSidebarProps {
 
 export function AppSidebar({ currentTab }: AppSidebarProps) {
   const [isVerifyDialogOpen, setIsVerifyDialogOpen] = useState(false);
-  const [isChangeStatusDialogOpen, setIsChangeStatusDialogOpen] = useState(false);
+  const [isChangeStatusDialogOpen, setIsChangeStatusDialogOpen] =
+    useState(false);
 
   const [isDocsPage, setIsDocsPage] = useState(false);
 
@@ -111,14 +124,19 @@ export function AppSidebar({ currentTab }: AppSidebarProps) {
               {groupActions.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
-                  onClick={() => handleActionClick(item.action)}
-                  disabled={isDocsPage || 
-                    (item.action === "changeStatus" &&
-                    (currentTab === "verified?" || currentTab === "unverified")) ||
-                    (item.action === "verifyPayments" && (currentTab == "not-done" || currentTab == "pending" || currentTab == "done"))
-                  }
+                    onClick={() => handleActionClick(item.action)}
+                    disabled={
+                      isDocsPage ||
+                      (item.action === "changeStatus" &&
+                        (currentTab === "verified?" ||
+                          currentTab === "unverified")) ||
+                      (item.action === "verifyPayments" &&
+                        (currentTab == "not-done" ||
+                          currentTab == "pending" ||
+                          currentTab == "done"))
+                    }
                   >
-                  <item.icon />
+                    <item.icon />
                     <span>{item.title}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -134,10 +152,10 @@ export function AppSidebar({ currentTab }: AppSidebarProps) {
               {docItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -162,12 +180,12 @@ export function AppSidebar({ currentTab }: AppSidebarProps) {
               Need help? Reach out to Kris via text.
             </p>
             <div className="px-2 py-2">
-                <SignedOut>
-                  <SignInButton />
-                </SignedOut>
-                <SignedIn>
-                  <UserButton />
-                </SignedIn>
+              <SignedOut>
+                <SignInButton />
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
             </div>
           </SidebarMenuItem>
         </SidebarMenu>

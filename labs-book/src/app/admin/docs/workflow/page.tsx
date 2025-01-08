@@ -1,18 +1,19 @@
 import React from "react";
+import Image from "next/image";
 
 const Document: React.FC = () => {
   return (
     <div className="flex flex-row">
-      <div className="flex flex-col items-start px-2 py-4 mx-20 w-full">
-        <p className="font-semibold mb-4 w-2/5">Workflow Introduction</p>
-        <p className="text-gray-700 py-1 w-2/5">
+      <div className="flex flex-col text-sm items-start px-4 py-4 mx-20 w-full">
+        <p className="font-semibold py-2 w-2/5">Workflow Introduction</p>
+        <p className="text-gray-700 py-2 w-2/5">
           This dashboard is meant to streamline the process of verifying and
           fulfilling orders from customers wanting to get a book.
         </p>
-        <p className="text-gray-800 text-sm font-semibold py-3 w-2/5">
-          VERIFICATION
+        <p className="text-gray-800 text-sm font-semibold py-2 w-2/5">
+          1) Verification
         </p>
-        <p className="text-gray-700 py-1 w-2/5">
+        <p className="text-gray-700 py-2 w-2/5">
           A customer initially must have their form of payment verified. When
           they submit the form on the main page, they specify whether they have
           paid via Zelle or Venmo and then provide us with their phone number or
@@ -22,10 +23,10 @@ const Document: React.FC = () => {
           them to resolve the issue. More details on this process can be found
           on the Verification doc page.
         </p>
-        <p className="text-gray-800 text-sm font-semibold py-3 w-2/5">
-          SENDING
+        <p className="text-gray-800 text-sm font-semibold py-2 w-2/5">
+          2) Sending
         </p>
-        <p className="text-gray-700 py-1 w-2/5">
+        <p className="text-gray-700 py-2 w-2/5">
           Once a customer has their payment verified, there are three statuses
           their order goes through: unsent, pending, and sent. They go in the
           exact order they are listed in and cannot be bypassed at any stage. In
@@ -38,7 +39,19 @@ const Document: React.FC = () => {
           confused.
         </p>
         <div className="grid grid-cols-5 gap-4 w-full pt-2">
-          <p className="text-gray-700 text-xs py-1 col-span-2">
+          <Image
+            src="/dayadmin-flow.svg"
+            alt="dayadmin-flow"
+            width={600}
+            height={400}
+            className="py-8 col-span-2"
+          />
+          <p className="text-gray-700 text-xs col-span-3 text-end self-center">
+            The three statuses an order goes through in the fulfillment process.
+          </p>
+        </div>
+        <div className="grid grid-cols-5 gap-4 w-full pt-2">
+          <p className="text-gray-800 text-xs py-2 col-span-2">
             UNSENT <sup>1</sup>
           </p>
           <p className="text-gray-700 text-xs col-span-3 text-end">
@@ -46,7 +59,7 @@ const Document: React.FC = () => {
             customer. Learn more here.
           </p>
         </div>
-        <p className="text-gray-700 py-1 w-2/5">
+        <p className="text-gray-700 py-2 w-2/5">
           Immediately after verification, all orders are classified as unsent.
           This is where all orders that are not scheduled for drop off go. Do
           not move an order from unsent unless you are ready for them to know
@@ -56,7 +69,7 @@ const Document: React.FC = () => {
           the next status – pending.
         </p>
         <div className="grid grid-cols-5 gap-4 w-full pt-2">
-          <p className="text-gray-700 text-xs py-1 col-span-2">
+          <p className="text-gray-800 text-xs py-2 col-span-2">
             PENDING <sup>2</sup>
           </p>
           <p className="text-gray-700 text-xs col-span-3 text-end">
@@ -64,15 +77,15 @@ const Document: React.FC = () => {
             customer. Learn more here.
           </p>
         </div>
-        <p className="text-gray-700 py-1 w-2/5">
+        <p className="text-gray-700 py-2 w-2/5">
           All orders that have been scheduled for drop off but have not actually
           been received by customers go here. It is important to have a decent
           amount of communication with customers at this time – only push to the
           next status once you are confident they have picked up the book with
           no major issues.
         </p>
-        <p className="text-gray-700 text-xs py-1 w-2/5 pt-2">SENT</p>
-        <p className="text-gray-700 py-1 w-2/5">
+        <p className="text-gray-700 text-xs py-2 w-2/5 pt-2">SENT</p>
+        <p className="text-gray-700 py-2 w-2/5">
           All orders here have been fulfilled and are in the hands of the
           customers. If something has gone wrong and we want to send them a new
           book, please push the new status and let the order&apos;s record start

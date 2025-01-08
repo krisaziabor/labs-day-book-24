@@ -27,7 +27,9 @@ export const VerifyPaymentDialog: React.FC<ChangeStatusDialogProps> = ({
   onClose,
 }) => {
   const [inputValue, setInputValue] = useState("");
-  const isInputValid = inputValue.toLowerCase() === "verify payment";
+  const [flaggingDescription, setFlaggingDescription] = useState("");
+  const isInputValid = inputValue.toLowerCase() === "update status";
+  const isFlaggingValid = flaggingDescription.trim() !== "";
 
   const handleConfirm = async () => {
     const wasPreviouslyChecked = preorder.verified;
@@ -59,18 +61,26 @@ export const VerifyPaymentDialog: React.FC<ChangeStatusDialogProps> = ({
     <AlertDialog open={isOpen} onOpenChange={onClose}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Verify or flag {preorder.first_name}&apos;s payment details</AlertDialogTitle>
+          <AlertDialogTitle>
+            Verify or flag {preorder.first_name}&apos;s payment details
+          </AlertDialogTitle>
           <AlertDialogDescription>
             If at the time of checking the payment status, the payment was not
-            verified, please click &apos;Flag&apos;. If the payment was verified, please
-            click &apos;Yes&apos;. Pressing flag will send the customer an automated message
-            asking them for further action and their order will be flagged in
-            &quot;customer action required&quot; until a change is made.
+            verified, please click &apos;Flag&apos;. If the payment was
+            verified, please click &apos;Yes&apos;. Pressing flag will send the
+            customer an automated message asking them for further action and
+            their order will be flagged in &quot;customer action required&quot;
+            until a change is made.
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <div className="py-4">
+        <div className="flex flex-col gap-4">
           <Input
-            placeholder="Type 'verify payment' to confirm"
+            placeholder="Specify reason for flagging"
+            value={flaggingDescription}
+            onChange={(e) => setFlaggingDescription(e.target.value)}
+          />
+          <Input
+            placeholder="Type 'update status' to confirm"
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
@@ -78,7 +88,10 @@ export const VerifyPaymentDialog: React.FC<ChangeStatusDialogProps> = ({
         </div>
         <AlertDialogFooter>
           <AlertDialogCancel onClick={onClose}>Cancel</AlertDialogCancel>
-          <AlertDialogAction disabled={!isInputValid} onClick={handleRejection}>
+          <AlertDialogAction
+            disabled={!isInputValid || !isFlaggingValid}
+            onClick={handleRejection}
+          >
             Flag
           </AlertDialogAction>
           <AlertDialogAction disabled={!isInputValid} onClick={handleConfirm}>

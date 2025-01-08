@@ -59,6 +59,22 @@ const Document: React.FC = () => {
                   </div>
                 </AccordionContent>
               </AccordionItem>
+              <AccordionItem value="nodejs">
+                <AccordionTrigger>
+                  <p className="text-gray-800 text-xs py-2 w-2/5">NODE.JS</p>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <div className="flex flex-col text-sm items-start w-full">
+                    <p className="text-gray-700 py-2 w-full">
+                      <b>
+                        <a href="https://nodejs.org/en">Node.js &#8599;</a>
+                      </b>{" "}
+                      powers all my Lambda functions and is vital for the
+                      additional scripts running in the middleware.
+                    </p>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
               <AccordionItem value="are.na">
                 <AccordionTrigger>
                   <p className="text-gray-800 text-xs py-2 w-2/5">CLERK</p>
@@ -160,7 +176,8 @@ const Document: React.FC = () => {
                         <a href="https://abcdinamo.com/typefaces/diatype">
                           ABC Diatype &#8599;
                         </a>
-                      </b>{" "} for a familiar typeface.
+                      </b>{" "}
+                      for a familiar typeface.
                     </p>
                   </div>
                 </AccordionContent>
@@ -191,35 +208,10 @@ const Document: React.FC = () => {
           And everything outside and in between
         </p>
         <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="1">
-            <AccordionTrigger>
-              <p className="text-gray-800 text-xs py-2 w-2/5">
-                THE SOUNDTRACK AND MEDIA KEEPING ME ALIVE
-              </p>
-            </AccordionTrigger>
-            <AccordionContent>
-              <div className="flex flex-col text-sm items-start w-full">
-                <p className="text-gray-700 py-2 w-2/5">
-                  Outside of 3am tennis matches streamed on shady websites and
-                  excrutiatingly painful Arsenal matches (our season is so
-                  cooked), I&apos;ve been listening to a lot of music and
-                  watching a lot of TV. Here are some of my favorites:
-                </p>
-                <p className="text-gray-700 py-2 w-2/5">
-                  <b>TV -&gt;</b> Shrinking, Sex and the City, Skins (UK) & Curb
-                  Your Enthusiasm&apos;s final season :(
-                </p>
-                <p className="text-gray-700 py-2 w-2/5">
-                  <b>Music -&gt;</b> Hiatus Kaiyote&apos;s Love Heart Cheat Code
-                  & Mood Valiant
-                </p>
-              </div>
-            </AccordionContent>
-          </AccordionItem>
           <AccordionItem value="2">
             <AccordionTrigger>
               <p className="text-gray-800 text-xs py-2 w-2/5">
-                VIEW ARE.NA CHANNEL
+                THE ARE.NA CHANNEL
               </p>
             </AccordionTrigger>
             <AccordionContent>
@@ -237,10 +229,31 @@ const Document: React.FC = () => {
               </div>
             </AccordionContent>
           </AccordionItem>
+          <AccordionItem value="4">
+            <AccordionTrigger>
+              <p className="text-gray-800 text-xs py-2 w-2/5">
+                THE REPOSITORY
+              </p>
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="flex flex-col text-sm items-start w-full">
+                <p className="text-gray-700 py-2 w-2/5">
+                  Interested in the source code that made this happen?
+                  <br />{" "}
+                  <b>
+                    <a href="https://github.com/designatyale/book-24">
+                      This GitHub repository &#8599;
+                    </a>
+                  </b>{" "}
+                  hosts all the code that powers this dashboard.
+                </p>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
           <AccordionItem value="3">
             <AccordionTrigger>
               <p className="text-gray-800 text-xs py-2 w-2/5">
-                READ MY CASE STUDY
+                MY CASE STUDY (OTW)
               </p>
             </AccordionTrigger>
             <AccordionContent>
@@ -256,24 +269,35 @@ const Document: React.FC = () => {
               </div>
             </AccordionContent>
           </AccordionItem>
-          <AccordionItem value="4">
+          <AccordionItem value="1">
             <AccordionTrigger>
               <p className="text-gray-800 text-xs py-2 w-2/5">
-                VIEW THE REPOSITORY
+                MEDIA THAT IS KEEPING ME ALIVE
               </p>
             </AccordionTrigger>
             <AccordionContent>
               <div className="flex flex-col text-sm items-start w-full">
                 <p className="text-gray-700 py-2 w-2/5">
-                  Interested in the source code that made this happen?
-                  <br />{" "}
-                  <b>
-                    <a href="https://github.com/designatyale/book-24">
-                      This GitHub repository &#8599;
-                    </a>
-                  </b>{" "}
-                  hosts all the code that powers this dashboard.
+                  Outside of 3am tennis matches streamed on shady websites and
+                  excrutiatingly painful Arsenal matches (our season is so
+                  cooked), I&apos;ve been listening to a lot of music and
+                  watching a lot of TV. Here are some of my favorites:
                 </p>
+                <p className="text-gray-700 py-2 w-2/5">
+                  TV -&gt; Shrinking, Sex and the City, Skins (UK) & Curb
+                  Your Enthusiasm&apos;s final season :(
+                </p>
+                <p className="text-gray-700 py-2 w-2/5">
+                  Music -&gt; Made y&apos;all a whole playlist!
+                </p>
+                <iframe
+                  allow="autoplay *; encrypted-media *;"
+                  frameBorder="0"
+                  height="450"
+                  style={{ width: "100%", maxWidth: "660px", overflow: "hidden", background: "transparent" }}
+                  sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+                  src="https://embed.music.apple.com/us/playlist/dev-day-book-24/pl.u-RRbVzBJImylNxp1"
+                ></iframe>
               </div>
             </AccordionContent>
           </AccordionItem>

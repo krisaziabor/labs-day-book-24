@@ -21,7 +21,6 @@ import {
   Layers,
   Heart,
   House,
-  NotebookPen,
   BadgeDollarSign,
   CircleArrowRight,
   SendHorizonal,
@@ -54,11 +53,6 @@ const docItems = [
     icon: SendHorizonal,
   },
   { title: "Colophon", url: "/admin/docs/colophon", icon: Heart },
-  {
-    title: "Designing the Dashboard",
-    url: "/admin/docs/design",
-    icon: NotebookPen,
-  },
 ];
 
 const groupActions = [

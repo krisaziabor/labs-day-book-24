@@ -136,6 +136,27 @@ const Document: React.FC = () => {
                   </div>
                 </AccordionContent>
               </AccordionItem>
+              <AccordionItem value="figma">
+                <AccordionTrigger>
+                  <p className="text-gray-800 text-xs py-2 w-2/5">
+                    TAILWIND CSS
+                  </p>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <div className="flex flex-col text-sm items-start w-full">
+                    <p className="text-gray-700 py-2">
+                      Something I can no longer live without,
+                      <b>
+                        <a href="https://tailwindcss.com">
+                          Tailwind CSS &#8599;
+                        </a>
+                      </b>{" "}
+                      simplifies the styling process and allows me to focus on
+                      the content rather than a 1000+ line long styles.css file.
+                    </p>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
               <AccordionItem value="shadcn">
                 <AccordionTrigger>
                   <p className="text-gray-800 text-xs py-2 w-2/5">SHADCN UI</p>
@@ -182,25 +203,6 @@ const Document: React.FC = () => {
                   </div>
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="figma">
-                <AccordionTrigger>
-                  <p className="text-gray-800 text-xs py-2 w-2/5">FIGMA</p>
-                </AccordionTrigger>
-                <AccordionContent>
-                  <div className="flex flex-col text-sm items-start w-full">
-                    <p className="text-gray-700 py-2">
-                      For the first time in ages, I did not start a project in{" "}
-                      <b>
-                        <a href="https://figma.com">Figma &#8599;</a>
-                      </b>
-                      . No wireframes or mockups were made in the initial
-                      stages. However, it was an extremely helpful tool to
-                      replicate components that I have inserted into the various
-                      documentation pages.
-                    </p>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
             </Accordion>
           </div>
         </div>
@@ -221,7 +223,7 @@ const Document: React.FC = () => {
                   used for this dashboard and the main page{" "}
                   <b>
                     <a href="https://www.are.na/kris-aziabor-byxkuha5zqa/day-book-2024">
-                      here
+                      here &#8599;
                     </a>
                   </b>
                   .
@@ -231,9 +233,7 @@ const Document: React.FC = () => {
           </AccordionItem>
           <AccordionItem value="4">
             <AccordionTrigger>
-              <p className="text-gray-800 text-xs py-2 w-2/5">
-                THE REPOSITORY
-              </p>
+              <p className="text-gray-800 text-xs py-2 w-2/5">THE REPOSITORY</p>
             </AccordionTrigger>
             <AccordionContent>
               <div className="flex flex-col text-sm items-start w-full">
@@ -246,25 +246,6 @@ const Document: React.FC = () => {
                     </a>
                   </b>{" "}
                   hosts all the code that powers this dashboard.
-                </p>
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="3">
-            <AccordionTrigger>
-              <p className="text-gray-800 text-xs py-2 w-2/5">
-                MY CASE STUDY (OTW)
-              </p>
-            </AccordionTrigger>
-            <AccordionContent>
-              <div className="flex flex-col text-sm items-start w-full">
-                <p className="text-gray-700 py-2 w-2/5">
-                  Coming soon to{" "}
-                  <b>
-                    <a href="https://krisaziabor.com">my website</a>
-                  </b>
-                  ! I&apos;ll be writing two case studies on the process of
-                  building this dashboard and the main page.
                 </p>
               </div>
             </AccordionContent>
@@ -284,8 +265,8 @@ const Document: React.FC = () => {
                   watching a lot of TV. Here are some of my favorites:
                 </p>
                 <p className="text-gray-700 py-2 w-2/5">
-                  TV -&gt; Shrinking, Sex and the City, Skins (UK) & Curb
-                  Your Enthusiasm&apos;s final season :(
+                  TV -&gt; Shrinking, Sex and the City, Skins (UK) & Curb Your
+                  Enthusiasm&apos;s final season :(
                 </p>
                 <p className="text-gray-700 py-2 w-2/5">
                   Music -&gt; Made y&apos;all a whole playlist!
@@ -294,7 +275,12 @@ const Document: React.FC = () => {
                   allow="autoplay *; encrypted-media *;"
                   frameBorder="0"
                   height="450"
-                  style={{ width: "100%", maxWidth: "660px", overflow: "hidden", background: "transparent" }}
+                  style={{
+                    width: "100%",
+                    maxWidth: "660px",
+                    overflow: "hidden",
+                    background: "transparent",
+                  }}
                   sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
                   src="https://embed.music.apple.com/us/playlist/dev-day-book-24/pl.u-RRbVzBJImylNxp1"
                 ></iframe>

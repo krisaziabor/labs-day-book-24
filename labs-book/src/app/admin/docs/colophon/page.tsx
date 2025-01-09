@@ -127,7 +127,7 @@ const Document: React.FC = () => {
                   <div className="flex flex-col text-sm items-start w-full">
                     <p className="text-gray-700 py-2">
                       Really the only frontend framework I ever considered
-                      using.
+                      using.{" "}
                       <b>
                         <a href="https://nextjs.org/">Next.js &#8599;</a>
                       </b>{" "}

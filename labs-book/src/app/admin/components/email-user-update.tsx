@@ -31,9 +31,9 @@ import {
         <Body style={main}>
           <Container style={container}>
             <Img
-              src={"https://avatars.githubusercontent.com/u/90132960?s=200&v=4"}
-              width="40"
-              height="33"
+              src={"https://github.com/krisaziabor/labs-day-book-24/blob/main/labs-book/public/day-studios.jpg?raw=true"}
+              width="123"
+              height="73"
               alt="DAY Logo"
             />
             <Section>

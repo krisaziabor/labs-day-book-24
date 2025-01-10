@@ -68,12 +68,9 @@ export const VerifyPaymentDialog: React.FC<ChangeStatusDialogProps> = ({
             Verify or flag {preorder.first_name}&apos;s payment details
           </AlertDialogTitle>
           <AlertDialogDescription>
-            If at the time of checking the payment status, the payment was not
-            verified, please click &apos;Flag&apos;. If the payment was
-            verified, please click &apos;Yes&apos;. Pressing flag will send the
-            customer an automated message asking them for further action and
-            their order will be flagged in &quot;customer action required&quot;
-            until a change is made.
+            If at the time of checking the payment status, the payment can be verified, press &apos;Verify&apos;
+            If not, press &apos;Flag&apos;. Flagging an order will send the
+            customer an email asking them for further action listing the reason you provide below.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <div className="flex flex-col gap-4">

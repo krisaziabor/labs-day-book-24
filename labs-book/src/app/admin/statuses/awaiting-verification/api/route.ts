@@ -1,4 +1,4 @@
-import { ActionRequiredEmailTemplate } from "../../../components/email-user-update";
+import { ActionRequiredEmailTemplate } from "../../../components/email-templates/payment-flagged";
 import { Resend } from 'resend';
 
 export async function GET() {

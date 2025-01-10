@@ -49,7 +49,7 @@ const docItems = [
   },
   {
     title: "Automated Emails",
-    url: "/admin/docs/automated-emails",
+    url: "/admin/docs/emails",
     icon: SendHorizonal,
   },
   { title: "Colophon", url: "/admin/docs/colophon", icon: Heart },

@@ -78,8 +78,6 @@ export function AppSidebar({ currentTab }: AppSidebarProps) {
     }
   }, []);
 
-  console.log("current tab:", currentTab);
-
   const handleActionClick = (action: string) => {
     if (action === "verifyPayments") {
       setIsVerifyDialogOpen(true);

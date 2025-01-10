@@ -1,4 +1,4 @@
-import { EmailTemplate } from "../../../components/email-user-update";
+import { ActionRequiredEmailTemplate } from "../../../components/email-user-update";
 import { Resend } from 'resend';
 import * as React from 'react';
 
@@ -69,12 +69,17 @@ export async function POST(request: Request) {
         if (!userEmail) {
             return new Response(JSON.stringify({ error: 'email is required' }), { status: 400 });
         }
+        const flagReason = requestUrl.searchParams.get('reason');
+        if (!flagReason) {
+            return new Response(JSON.stringify({ error: 'reason is required' }), { status: 400 });
+        }
         
         const { data, error } = await resend.emails.send({
             from: 'Design at Yale <orders@designatyalebooks.com>',
             to: [userEmail],
+            cc: 'DAY Studio <hello@designatyale.com>',
             subject: 'Order Update',
-            react: EmailTemplate({ firstName: userName }) as React.ReactElement,
+            react: ActionRequiredEmailTemplate({ userFirstname: userName, flaggingDescription: flagReason }) as React.ReactElement,
         });
 
         if (error) {

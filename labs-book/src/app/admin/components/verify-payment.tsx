@@ -14,6 +14,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { updateVerificationStatus } from "../utils/updateVerification";
 import { Preorder } from "./columns";
+import { sendFlagEmail } from "../utils/sendEmail";
+
 
 interface ChangeStatusDialogProps {
   preorder: Preorder;
@@ -54,6 +56,7 @@ export const VerifyPaymentDialog: React.FC<ChangeStatusDialogProps> = ({
     }
 
     await updateVerificationStatus(preorder.id, 0, route);
+    await sendFlagEmail(preorder.email, preorder.first_name, flaggingDescription);
     onClose(); // Close the dialog after confirmation
   };
 

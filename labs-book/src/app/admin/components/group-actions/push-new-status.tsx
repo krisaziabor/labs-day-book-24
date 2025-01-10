@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { getAlertDialogGroupDescription } from "../../utils/getAlertDialogGroupDescription";
 import { updateFulfillmentStatus } from "../../utils/updateStatus";
-import { sendEmail } from "../../utils/sendEmail";
+// import { sendEmail } from "../../utils/sendEmail";
 import { useSelectedRows } from "../selected-rows-provider";
 
 interface ChangeStatusDialogProps {
@@ -47,7 +47,7 @@ export const ChangeStatusesDialog: React.FC<ChangeStatusDialogProps> = ({
         preorder.fulfilled,
         preorder.pending
       );
-      await sendEmail(preorder.email, preorder.first_name);
+      // await sendEmail(preorder.email, preorder.first_name);
     }
     onClose(); // Close the dialog after confirmation
   };

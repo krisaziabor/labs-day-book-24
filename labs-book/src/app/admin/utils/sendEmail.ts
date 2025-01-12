@@ -22,3 +22,27 @@ export async function sendFlagEmail(email: string, name: string, reason: string)
     console.error("Error sending email, sendEmail.ts:", error);
   }
 }
+
+export async function sendSentEmail(email:string) {
+  try {
+    const url = `/admin/statuses/pending/api/?email=${email}`;
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    console.log("Sending sent email with URL:", url);
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || "Failed to send email – sendEmail.ts");
+    }
+
+    console.log("Email sent successfully");
+  } catch (error) {
+    console.error("Error sending email, sendEmail.ts:", error);
+  }
+}

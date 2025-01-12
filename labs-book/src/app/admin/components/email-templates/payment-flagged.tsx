@@ -11,7 +11,6 @@ import {
     Text,
   } from "@react-email/components";
   import * as React from "react";
-  import "../../../../public/day-studios.jpg";
   
   interface DayActionRequiredEmailProps {
     userFirstname?: string;

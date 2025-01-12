@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { getAlertDialogDescription } from "../utils/getAlertDialogDescription";
 import { updateFulfillmentStatus } from "../utils/updateStatus";
 import { Preorder } from "./columns";
+import { sendSentEmail } from "../utils/sendEmail";
 
 interface ChangeStatusDialogProps {
   preorder: Preorder;
@@ -31,6 +32,9 @@ export const ChangeStatusDialog: React.FC<ChangeStatusDialogProps> = ({
   const isInputValid = inputValue.toLowerCase() === "change status";
 
   const handleConfirm = async () => {
+    if (preorder.fulfilled === true && preorder.pending === false) {
+      await sendSentEmail(preorder.email);
+    }
     await updateFulfillmentStatus(preorder.id, preorder.fulfilled, preorder.pending);
     onClose(); // Close the dialog after confirmation
   };
